@@ -1,11 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StartUp Template</title>
+    <title>Financify - Control your house finances</title>
 </head>
+
 <body>
-    
+    <main>
+        <div class="container">
+            <nav id="navigation">
+                <h2 class="logo"><i class="fas fa-anchor"></i>Financify</h2>
+                <ul>
+                    <a href="#" class="btn__calendar">
+                        <li>
+                            <img class="icon" src="/resources/icons/calendar.svg" title="Calendar" alt="Calendar">
+                        </li>
+                    </a>
+                    <a href="#" class="btn__add-card">
+                        <li>
+                            <img class="icon" src="/resources/icons/add.svg" title="Add Card" alt="Add Card">
+                        </li>
+                    </a>
+                    <a href="#" class="btn__sign-out">
+                        <li>
+                            <img class="icon" src="/resources/icons/sign-out.svg" title="Sign Out" alt="Sign Out">
+                        </li>
+                    </a>
+                </ul>
+            </nav>
+            <section class="content__body">
+                <div class="content__items">
+                    <!--Card markup for items-->
+                    <!--<div id="" class="card">
+                        <div class="card__header">
+                            <input id="input-name-js" type="text" class="card__name" placeholder="Name"></input>
+                            <img id="btn-edit-name-js" class="icon icon__edit-name" src="/resources/icons/edit.svg" title="Edit Name" alt="Edit Name">
+                            <img id="btn-delete-card-js" class="icon icon__delete-card" src="/resources/icons/delete.svg" title="Delete Card" alt="Delete Card">
+                            <img id="btn-add-cell-js" class="icon icon__add-cell" src="/resources/icons/add.svg" title="Add Cell" alt="Add Cell">
+                        </div>
+                        <div class="card__list">
+                            <div class="card__cell">
+                                <input id="input-concept-js" type="text" placeholder="Concept" class="card__concept"></input>
+                                <input id="input-amount-js" type="number" placeholder="Amount" class="card__amount"></input>
+                                <img id="btn-edit-cell-js" class="icon icon__edit-cell" src="/resources/icons/edit.svg" title="Edit Cell" alt="Edit Cell">
+                                <img id="btn-delete-cell-js" class="icon icon__delete-cell" src="/resources/icons/delete.svg" title="Delete Cell" alt="Delete Cell">
+                            </div>
+                        </div>
+                        <div class="card__footer">
+                            <div class="card__expended text-bold">Expenses: <span id="total-amount">{{787}}</span></div>
+                        </div>
+                    </div>--> <!--End of card markup for items-->
+                    
+                </div>
+            </section>
+        </div> <!--end of container-->
+        <footer id="footer">
+            <img class="icon icon__total" src="/resources/icons/total.svg" title="Total" alt="Total">
+            <h3 class="text-bold">Total: <span id="total__expenses">687€</span></h3>
+        </footer>
+    </main>
 </body>
+
 </html>

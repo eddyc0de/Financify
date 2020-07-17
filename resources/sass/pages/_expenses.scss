@@ -1,0 +1,24 @@
+.content {
+  &__header {
+    grid-column: 3 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px;
+    color: $primary-text-color;
+  }
+
+  &__body {
+    grid-area: 2 / 1 / -1 / 13;
+  }
+
+  &__items {
+    padding: 25px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 400px);
+    justify-content: center;
+    justify-items: center;
+    gap: 25px;
+    padding-bottom: 105px;
+  }
+}

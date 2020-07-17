@@ -1,3 +1,5 @@
+@import "~animate.css/animate.min.css";
+
 @import "abstract/functions";
 @import "abstract/mixins";
 @import "abstract/variables";
@@ -6,3 +8,11 @@
 @import "base/base";
 @import "base/typepography";
 @import "base/utilities";
+
+@import "components/navigation.scss";
+@import "components/card.scss";
+@import "components/footer.scss";
+
+@import "layouts/expenses.scss";
+
+@import "pages/expenses.scss";

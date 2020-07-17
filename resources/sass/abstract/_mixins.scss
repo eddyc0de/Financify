@@ -1,0 +1,31 @@
+/* REFERENCE FOR BREAKPOINTS */
+/*
+    // No media query necessary for small devices breakpoint as it's effectively
+    $mobile-landscape: 576px; -> From 576px up
+    $tablet: 768px; -> From 768px up
+    $desktop: 992px; -> From 992px up
+    $large-desktop: 1200px; -> From 1200px up
+*/
+
+@mixin respondto($breakpoint) {
+    @if $breakpoint == mobile-landscape {
+        @media only screen and (min-width: $mobile-landscape) {
+            @content;
+        }
+    }
+    @if $breakpoint == tablet {
+        @media only screen and (min-width: $tablet) {
+            @content;
+        }
+    }
+    @if $breakpoint == desktop {
+        @media only screen and (min-width: $desktop) {
+            @content;
+        }
+    }
+    @if $breakpoint == large-desktop {
+        @media only screen and (min-width: $large-desktop) {
+            @content;
+        }
+    }
+}

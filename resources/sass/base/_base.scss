@@ -1,7 +1,69 @@
 /* BASIC RESET */
-* {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
+html,
+body {
+  font-size: 62.5%; // 10/16*100 = 62.5% by default (mobile first)
+  font-family: Arial, Helvetica, sans-serif;
+  height: 100vh;
+
+  @include respondto(tablet) {
+    font-size: 75%; // 12/16*100 = 75%
+  }         
+
+  @include respondto(desktop) {
+    font-size: 100%;
+  }
+}
+
+h1 {
+  font-size: 34px;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+h3 {
+  font-size: 22px;
+}
+
+a,
+a:link,
+a:visited {
+  text-decoration: none;
+  color: $white;
+}
+
+main {
+  max-height: 100vh;
+  max-width: 100vw;
+}
+
+input {
+  padding: 10px;
+  border: none;
+  outline: none;
+  border-radius: 2px;
+}
+
+button {
+  padding: 10px;
+  border: none;
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+
+.icon {
+  width: 25px;
+  height: 25px;
+  color: #fff;
+  cursor: pointer;
+}

@@ -1,0 +1,35 @@
+#navigation {
+  grid-column: 1 / -1;
+  background-color: $primary-color-dark;
+  color: $white;
+  padding: 25px;
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid $divider-color;
+
+  .logo {
+    font-weight: $text-bold;
+    text-transform: uppercase;
+  }
+
+  ul {
+    display: flex;
+    flex: 1 1 100%;
+    justify-content: flex-end;
+    list-style: none;
+    font-weight: $text-bold;
+    text-transform: uppercase;
+
+    li {
+      padding: 10px;
+    }
+
+    a {
+      margin: 0 10px;
+      border: 2px solid #ffffff;
+      &:hover {
+        border: 2px solid $orangered;
+      }
+    }
+  }
+}
