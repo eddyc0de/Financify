@@ -1,4 +1,4 @@
-var uniqid = require('uniqid');
+import uniqid from 'uniqid';
 import '../../resources/sass/main.scss';
 import '../../resources/icons/add.svg';
 import '../../resources/icons/calendar.svg';
@@ -7,16 +7,55 @@ import '../../resources/icons/edit.svg';
 import '../../resources/icons/delete.svg';
 import '../../resources/icons/sign-out.svg';
 
-
 //EXPENSES CONTROLLER
 var expensesController = (function() {
-    var itemsStorage = {
-        cards: [],
-        totalExpenses: 0
+    var state = {
+        cards: [] //Save card objects
     };
 
     //Public methods
     return {
+        fetchDataCards: function() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'https://financify-c7c89.firebaseio.com/cards.json', true);
+            xhr.responseType = 'json';
+            xhr.send();
+            
+            xhr.onload = function() {
+                if(xhr.status != 200) {
+                    console.log('Error ' + xhr.status + '+' + xhr.statusText);
+                } else {
+                    console.log(xhr.response);
+                }
+            }
+            xhr.onerror = function() {
+                console.log("Something went wrong");
+            }
+        },
+
+        sendDataCards: function() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'https://financify-c7c89.firebaseio.com/cards.json', true);
+            xhr.responseType = 'json';
+            var objTest = {
+                date: new Date().getTime(),
+                name: 'Edgar',
+                expenses: ['lidl', '145€']
+            };
+            xhr.send(JSON.stringify(objTest));
+            
+            xhr.onload = function() {
+                if(xhr.status != 200) {
+                    console.log('Error ' + xhr.status + '+' + xhr.statusText);
+                } else {
+                    console.log(xhr.response);
+                }
+            }
+            xhr.onerror = function() {
+                console.log("Something went wrong");
+            }
+        },
+
         createCardID: function() {
             return uniqid('card-');
         },
@@ -26,17 +65,14 @@ var expensesController = (function() {
         },
 
         storeCardID: function(id) {
-            itemsStorage.cards.push(id);
+            state.cards.push(id);
         }
     };
-
 })();
-
 
 //UI CONTROLLER
 var UIController = (function() {
-    
-    //Dictionary to gather all DOM the elements
+    //Dictionary for DOM elements
     var DOMStrings = {
         calendar: '.btn__calendar',
         addCard: '.btn__add-card',
@@ -65,9 +101,10 @@ var UIController = (function() {
         },
 
         addCard: function(id) {
-            var markup = '<div id="{{id}}" class="card">' +
+            var markup = 
+            '<div id="{{id}}" class="card">' +
                 '<div class="card__header">' +
-                    '<input id="input-name-js" type="text" class="card__name" placeholder="Name"></input>' +
+                    '<input id="input-name-js" type="text" class="card__name" placeholder="Date"></input>' +
                     '<img id="btn-edit-name-js" class="icon icon__edit-name" src="/resources/icons/edit.svg" title="Edit Name" alt="Edit Name">' +
                     '<img id="btn-delete-card-js" class="icon icon__delete-card" src="/resources/icons/delete.svg" title="Delete Card" alt="Delete Card">' +
                     '<img id="btn-add-cell-js" class="icon icon__add-cell" src="/resources/icons/add.svg" title="Add Cell" alt="Add Cell">' +
@@ -84,7 +121,8 @@ var UIController = (function() {
         },
 
         addCardCell: function(id, event) {
-            var markup = '<div id="{{id}}" class="card__cell"><input id="input-concept-js" type="text" placeholder="Concept" class="card__concept"></input>' +
+            var markup = 
+            '<div id="{{id}}" class="card__cell"><input id="input-concept-js" type="text" placeholder="Concept" class="card__concept"></input>' +
             '<input id="input-amount-js" type="number" placeholder="Amount" class="card__amount"></input>' +
             '<img btn="btn-edit-cell-js" class="icon icon__edit-cell" src="/resources/icons/edit.svg" title="Edit Cell" alt="Edit Cell">' +
             '<img btn="btn-delete-cell-js" class="icon icon__delete-cell" src="/resources/icons/delete.svg" title="Delete Cell" alt="Delete Cell"></div>';
@@ -100,34 +138,38 @@ var UIController = (function() {
 
 })();
 
-
-//MAIN APP CONTROLLER
+//APP CONTROLLER
 var appController = (function(expensesCtrl, UICtrl){
     var DOMStrings = UICtrl.getDOMStrings();
     var parentContainer = document.querySelector(DOMStrings.contentItems);
 
     function setupEventListeners() {
         document.querySelector(DOMStrings.addCard).addEventListener('click', CtrlAddCard);  
-        parentContainer.addEventListener('click', eventManager);
-    }
-
-    function eventManager(event) {        
+        parentContainer.addEventListener('click', function(event) {
         var itemID = event.target.id;
-
-        if(itemID === 'btn-delete-card-js') {
-            CtrlDeleteCard(event);
-        } else if(itemID === 'btn-add-cell-js') {
-            CtrlAddCardCell(event);
-        } else if(itemID === 'btn-delete-cell-js') {
-            CtrlDeleteCardCell(event);
-        } else if(itemID === 'btn-edit-cell-js') {
-            CtrlEditCardCell(event);
-        } else if(itemID === 'btn-edit-name-js') {
-            CtrlEditCardName(event);
+        switch (itemID) {
+            case 'btn-delete-card-js':
+                CtrlDeleteCard(event);
+                break;
+            case 'btn-add-cell-js':
+                CtrlAddCardCell(event);
+                break;
+            case 'btn-delete-cell-js':
+                CtrlDeleteCardCell(event);
+                break;
+            case 'btn-edit-cell-js':
+                CtrlEditCardCell(event);
+                break;
+            case 'btn-edit-name-js':
+                CtrlEditCardName(event);
+                break;
+            default:
+                break;
         }
+        });
     }
 
-    //Main functions
+    //Main Actions
     var CtrlAddCard = function() {
         console.log("addCard");
 
@@ -140,7 +182,7 @@ var appController = (function(expensesCtrl, UICtrl){
         //Adds the card to the UI
         UICtrl.addCard(id);
 
-        setupEventListeners();
+        //setupEventListeners();
     }
 
     var CtrlDeleteCard = function(event) {
@@ -174,8 +216,9 @@ var appController = (function(expensesCtrl, UICtrl){
     //Public methods
     return {
         init: function() {
-            console.log("App started");
             setupEventListeners();
+            //expensesController.fetchDataCards();
+            expensesController.sendDataCards();
         }
     };
 
